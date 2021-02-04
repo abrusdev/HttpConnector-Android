@@ -1,0 +1,3 @@
+include ':http-connector'
+include ':app'
+rootProject.name = "HttpConnector"
