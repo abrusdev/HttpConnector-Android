@@ -12,11 +12,14 @@ import dev.abrus.http_connector.interfaces.HttpParams;
 public class HttpConnector extends BaseHttpConnector implements HttpParams {
 
     private URL url;
-    private final String TAG = "HttpConnector";
+    private static final int DEFAULT_TIMEOUT = 10000;
+    private static final String TAG = "HttpConnector";
 
     private HttpConnector(URL url) throws IOException {
         conn = (HttpURLConnection) url.openConnection();
         setRequestMethod(method);
+        setConnectTimeout(DEFAULT_TIMEOUT);
+        setReadTimeout(DEFAULT_TIMEOUT);
     }
 
     public static HttpConnector create(String link) throws IOException {
@@ -54,6 +57,18 @@ public class HttpConnector extends BaseHttpConnector implements HttpParams {
     @Override
     public HttpConnector setDoOutput(boolean doOutput) {
         conn.setDoOutput(true);
+        return this;
+    }
+
+    @Override
+    public HttpConnector setConnectTimeout(int time) {
+        conn.setConnectTimeout(time);
+        return this;
+    }
+
+    @Override
+    public HttpConnector setReadTimeout(int time) {
+        conn.setReadTimeout(time);
         return this;
     }
 }

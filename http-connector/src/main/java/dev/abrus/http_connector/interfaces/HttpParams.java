@@ -12,4 +12,8 @@ public interface HttpParams {
     HttpConnector setDoInput(boolean doInput);
 
     HttpConnector setDoOutput(boolean doOutput);
+
+    HttpConnector setConnectTimeout(int time);
+
+    HttpConnector setReadTimeout(int time);
 }
