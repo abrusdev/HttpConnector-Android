@@ -8,40 +8,36 @@ import java.util.concurrent.Executors;
 
 import dev.abrus.http_connector.interfaces.HttpTaskListener;
 
-public class HttpAsyncTask {
+public class HttpAsyncTask<R> {
 
     ExecutorService service;
     Handler handler;
 
-    private HttpAsyncTask() {
+    public HttpAsyncTask() {
         service = Executors.newSingleThreadExecutor();
         handler = new Handler(Looper.getMainLooper());
     }
 
-    public static HttpAsyncTask create() {
-        return new HttpAsyncTask();
-    }
-
-    public HttpAsyncTask setHandler(Handler handler) {
+    public HttpAsyncTask<R> setHandler(Handler handler) {
         this.handler = handler;
         return this;
     }
 
-    public HttpAsyncTask setLooper(Looper looper) {
+    public HttpAsyncTask<R> setLooper(Looper looper) {
         this.handler = new Handler(looper);
         return this;
     }
 
-    public HttpAsyncTask setExecutorService(ExecutorService service) {
+    public HttpAsyncTask<R> setExecutorService(ExecutorService service) {
         this.service = service;
         return this;
     }
 
-    public void start(HttpTaskListener listener) {
+    public void create(HttpTaskListener<R> listener) {
         service.execute(() -> {
-            listener.doInBackground();
+            R result = listener.doInBackground();
 
-            handler.post(listener::onPreExecute);
+            handler.post(() -> listener.onPreExecute(result));
         });
     }
 }

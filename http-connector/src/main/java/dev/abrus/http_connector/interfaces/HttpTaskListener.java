@@ -1,8 +1,8 @@
 package dev.abrus.http_connector.interfaces;
 
-public interface HttpTaskListener {
+public interface HttpTaskListener<R> {
 
-    void doInBackground();
+    R doInBackground();
 
-    void onPreExecute();
+    void onPreExecute(R result);
 }
