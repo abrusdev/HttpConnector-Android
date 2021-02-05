@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
-import dev.abrus.http_connector.enums.HttpMethod;
+import dev.abrus.http_connector.methods.HttpMethod;
 
 abstract class BaseHttpConnector {
+
+    StringBuilder html;
 
     HttpMethod method = HttpMethod.GET;
     BufferedReader buffer;
@@ -29,5 +31,12 @@ abstract class BaseHttpConnector {
         buffer = new BufferedReader(new InputStreamReader(conn.getInputStream()));
     }
 
+    protected void readAllLines() throws IOException {
+        html = new StringBuilder();
+        String line;
+        while ((line = buffer.readLine()) != null) {
+            html.append(line.trim()).append('\n');
+        }
+    }
 
 }

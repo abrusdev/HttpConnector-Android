@@ -2,24 +2,26 @@ package dev.abrus.http_connector;
 
 import android.util.Log;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import dev.abrus.http_connector.enums.HttpMethod;
+import dev.abrus.http_connector.methods.HttpMethod;
 import dev.abrus.http_connector.interfaces.HttpParams;
 
 public class HttpConnector extends BaseHttpConnector implements HttpParams {
 
-    private URL url;
     private static final int DEFAULT_TIMEOUT = 10000;
     private static final String TAG = "HttpConnector";
 
     private HttpConnector(URL url) throws IOException {
         conn = (HttpURLConnection) url.openConnection();
         setRequestMethod(method);
-        setConnectTimeout(DEFAULT_TIMEOUT);
-        setReadTimeout(DEFAULT_TIMEOUT);
+        this.setConnectTimeout(DEFAULT_TIMEOUT);
+        this.setReadTimeout(DEFAULT_TIMEOUT);
     }
 
     public static HttpConnector create(String link) throws IOException {
@@ -40,6 +42,16 @@ public class HttpConnector extends BaseHttpConnector implements HttpParams {
 
     public void log() throws IOException {
         log(TAG);
+    }
+
+    public String get() throws IOException {
+        initBufferedReader();
+        return html.toString();
+    }
+
+    public Document getDocument() throws IOException {
+        initBufferedReader();
+        return Jsoup.parse(html.toString());
     }
 
     @Override
