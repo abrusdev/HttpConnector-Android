@@ -37,6 +37,7 @@ abstract class BaseHttpConnector {
 
     protected void initBufferedReader() throws IOException {
         buffer = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        readAllLines();
     }
 
     protected void initOutputStream(HashMap<String, String> query) throws IOException {
