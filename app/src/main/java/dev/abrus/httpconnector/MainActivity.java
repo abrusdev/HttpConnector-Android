@@ -8,7 +8,10 @@ import android.os.Looper;
 
 import java.util.concurrent.Executors;
 
+import dev.abrus.http_connector.ConnectorUrl;
+import dev.abrus.http_connector.HttpConnector;
 import dev.abrus.http_connector.interfaces.HttpTaskListener;
+import dev.abrus.http_connector.methods.HttpMethod;
 import dev.abrus.http_connector.task.HttpAsyncTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,19 +20,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new HttpAsyncTask<Integer>()
-                .setHandler(new Handler(Looper.getMainLooper()))
-                .setExecutorService(Executors.newSingleThreadExecutor())
-                .create(new HttpTaskListener<Integer>() {
-                    @Override
-                    public Integer doInBackground() {
-                        return null;
-                    }
-
-                    @Override
-                    public void onPreExecute(Integer result) {
-
-                    }
-                });
+//        HttpConnector.create(BASE_URL)
+//                .setConnectTimeout(10000)
+//                .setReadTimeout(10000)
+//                .setMethod(HttpMethod.POST)
+//                .setDoInput(true)
+//                .setDoOutput(true)
+//                .setQuery("login", "login")
+//                .setQuery("pass", "pass")
+//                .getBuffer();
     }
 }

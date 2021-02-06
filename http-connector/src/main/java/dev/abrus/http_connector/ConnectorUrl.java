@@ -15,11 +15,14 @@ public class ConnectorUrl {
         baseURL.append(url);
     }
 
-    public static ConnectorUrl create(String url) {
-        return new ConnectorUrl(url);
+    public static ConnectorUrl create(String baseURL) {
+        return new ConnectorUrl(baseURL);
     }
 
     public ConnectorUrl setAction(String action) {
+        if (action.startsWith("http")) {
+            baseURL = new StringBuilder();
+        }
         baseURL.append(action);
         return this;
     }

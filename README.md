@@ -12,21 +12,30 @@ USAGE
 Add it in your root build.gradle at the end of repositories:
 ```
 allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
 }
 ```
 Add the dependency
 ```groovy
 dependencies {
     implementation 'com.github.abrusdev:HttpConnector-Android:0.0.5'
-    implementation 'org.jsoup:jsoup:1.13.1'
 }
 ```
 
-JAVA
+Java
+-----
+create url link with simplest way
+```
+ConnectorUrl.create("http://example.com")
+    .setAction("/projects")
+    .setQuery("id", "11")
+    .setQuery("type", "android");
+```
+
+create GET request
 -----
 ```
 HttpConnector.create(BASE_URL)
@@ -34,6 +43,20 @@ HttpConnector.create(BASE_URL)
     .setReadTimeout(10000)
     .setMethod(HttpMethod.GET)
     .get();
+```
+
+create POST request
+-----
+```
+HttpConnector.create(BASE_URL)
+    .setConnectTimeout(10000)
+    .setReadTimeout(10000)
+    .setMethod(HttpMethod.POST)
+    .setDoInput(true)
+    .setDoOutput(true)
+    .setQuery("login", "login")
+    .setQuery("pass", "pass")
+    .getBuffer();
 ```
 Simple AsyncTask
 -----
