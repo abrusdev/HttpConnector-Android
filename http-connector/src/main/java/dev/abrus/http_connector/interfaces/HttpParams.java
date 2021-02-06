@@ -16,4 +16,6 @@ public interface HttpParams {
     HttpConnector setConnectTimeout(int time);
 
     HttpConnector setReadTimeout(int time);
+
+    HttpConnector setQuery(String key, String value);
 }
