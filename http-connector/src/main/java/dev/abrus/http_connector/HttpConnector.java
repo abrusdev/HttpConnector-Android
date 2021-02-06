@@ -40,8 +40,8 @@ public class HttpConnector extends BaseHttpConnector implements HttpParams {
     }
 
     public void log(String TAG) throws IOException {
-        initOutputStream(query);
         initBufferedReader();
+        initOutputStream(query);
         String line;
         while ((line = buffer.readLine()) != null)
             Log.i(TAG, line);
@@ -52,20 +52,20 @@ public class HttpConnector extends BaseHttpConnector implements HttpParams {
     }
 
     public String get() throws IOException {
-        initOutputStream(query);
         initBufferedReader();
+        initOutputStream(query);
         return html.toString();
     }
 
     public BufferedReader getBuffer() throws IOException {
-        initOutputStream(query);
         initBufferedReader();
+        initOutputStream(query);
         return buffer;
     }
 
     public Document getDocument() throws IOException {
-        initOutputStream(query);
         initBufferedReader();
+        initOutputStream(query);
         return Jsoup.parse(html.toString());
     }
 
